@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import Dazzle from '@/Dazzle'
 
 Vue.use(Router)
 
@@ -8,8 +8,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'Dazzle',
+      component: Dazzle
+    },
+    {
+      path: '/dazzle',
+      name: 'Dazzle',
+      component: Dazzle
     }
   ]
 })

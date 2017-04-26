@@ -25,12 +25,12 @@ import Playbook from '@/components/Playbook'
 
 export default {
   name: 'dazzle',
+  components: { bProgress, bBadge, bTabs, bTab, Calculator, Playbook },
   filters: {
     percentage (value) {
       return (value * 100).toFixed(2) + '%'
     }
   },
-  components: { bProgress, bBadge, bTabs, bTab, Calculator, Playbook },
   data () {
     return {
       conversion_goal: 0.45,

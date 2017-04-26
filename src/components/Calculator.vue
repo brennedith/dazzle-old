@@ -3,7 +3,7 @@
     .col-md-7
       .row
         .col
-          b-card(header="Today")
+          b-card(header="Today" show-footer)
             .row.no-gutters
               b-input-group.col(left="Sales")
                 b-form-input(:value="sales" disabled)
@@ -13,6 +13,9 @@
                   i.fa.fa-plus
               b-input-group.col(left="Revenue")
                 b-form-input(:value="revenue | currency" disabled)
+            small(slot="footer" class="text-muted")
+              i.fa.fa-info-circle
+              | &nbsp; {{ quote }}
       .row.top
         .col
           b-card(header="Your Bonus")
@@ -23,7 +26,6 @@
                 b-form-input(:value="12 | currency" disabled)
         .col
           b-card(header="Stopwatch")
-            .row
             stopwatch
     .col-md-5
       b-card(header="Sales")
@@ -41,7 +43,6 @@
               template(slot="actions" scope="sale")
                 b-button(variant="danger" size="sm" @click="removeSale(sale.index)")
                   i.fa.fa-trash-o
-    p {{ conversion }}
 </template>
 
 <script>
@@ -50,18 +51,19 @@ import Stopwatch from '@/components/Stopwatch'
 
 export default {
   name: 'calculator',
+  components: { bCard, bButton, bInputGroup, bFormInput, bTable, Stopwatch },
   filters: {
     currency (value) {
       return '$ ' + value.toFixed(2)
     }
   },
-  components: { bCard, bButton, bInputGroup, bFormInput, bTable, Stopwatch },
   data () {
     return {
       salesList: [],
       saleNo: 1,
       saleRe: 0,
-      calls: 0
+      calls: 0,
+      quote: 'Positive thinking won\'t let you do anything, but it will let you do everything better than negative thinking will.- Zig Ziglar'
     }
   },
   computed: {

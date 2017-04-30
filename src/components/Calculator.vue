@@ -78,7 +78,12 @@ export default {
       return max > len ? len : max
     },
     conversion () {
-      return this.calls > 0 ? this.sales / this.calls : 0
+      return this.calls > 0 ? this.sales / this.calls : 1
+    }
+  },
+  watch: {
+    conversion () {
+      this.$emit('sendConversion', this.conversion)
     }
   },
   methods: {

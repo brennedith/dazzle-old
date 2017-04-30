@@ -13,7 +13,7 @@
       .row
       b-tabs
         b-tab(title="Calculator" active)
-          calculator
+          calculator(@sendConversion="getConversion")
         b-tab(title="Playbook")
           playbook
 </template>
@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       conversion_goal: 0.45,
-      conversion: 0.45
+      conversion: 1
     }
   },
   computed: {
@@ -43,6 +43,11 @@ export default {
     },
     variant () {
       return this.stamina >= 100 ? 'success' : this.stamina >= 75 ? 'warning' : 'danger'
+    }
+  },
+  methods: {
+    getConversion (conversion) {
+      this.conversion = conversion
     }
   }
 }

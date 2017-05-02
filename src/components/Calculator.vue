@@ -21,9 +21,9 @@
           b-card(header="Your Bonus")
             .row.no-gutters
               b-input-group.col(left="Current")
-                b-form-input(:value="12 | currency" disabled)
+                b-form-input(:value="bonus.current * revenue | currency" disabled)
               b-input-group.col(left="Next")
-                b-form-input(:value="12 | currency" disabled)
+                b-form-input(:value="bonus.next * revenue | currency" disabled)
         .col
           b-card(header="Stopwatch")
             stopwatch
@@ -33,7 +33,7 @@
           b-input-group.col(left="Number")
             b-form-input(type="number" v-model.number="saleNo")
           b-input-group.col(left="Revenue")
-            b-form-input(type="number" v-model.number="saleRe")
+            b-form-input(type="number" v-model.number="saleRe" @keyup.enter="addSale")
           b-button(variant="success" @click="addSale")
             i.fa.fa-plus
         .row
@@ -48,6 +48,8 @@
 <script>
 import { bCard, bButton, bInputGroup, bFormInput, bTable } from 'bootstrap-vue/lib/components'
 import Stopwatch from '@/components/Stopwatch'
+import quote from '@/components/content/quotes'
+import bonus from '@/components/content/bonuses'
 
 export default {
   name: 'calculator',
@@ -61,9 +63,9 @@ export default {
     return {
       salesList: [],
       saleNo: 1,
-      saleRe: 0,
+      saleRe: '',
       calls: 0,
-      quote: 'Positive thinking won\'t let you do anything, but it will let you do everything better than negative thinking will.- Zig Ziglar'
+      quote: quote.random()
     }
   },
   computed: {
@@ -73,12 +75,15 @@ export default {
       }, 0)
     },
     sales () {
-      let len = this.salesList.length
-      let max = len > 0 ? Math.max.apply(Math, this.salesList.map((current) => { return current.number })) : 0
+      const len = this.salesList.length
+      const max = len > 0 ? Math.max.apply(Math, this.salesList.map((current) => { return current.number })) : 0
       return max > len ? len : max
     },
     conversion () {
       return this.calls > 0 ? this.sales / this.calls : 1
+    },
+    bonus () {
+      return bonus.calc('hon', 'below60', this.conversion)
     }
   },
   watch: {
@@ -94,7 +99,7 @@ export default {
           revenue: this.saleRe
         })
         this.saleNo = this.sales + 1
-        this.saleRe = 0
+        this.saleRe = ''
       }
     },
     addCall () {

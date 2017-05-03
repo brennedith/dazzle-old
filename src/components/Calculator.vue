@@ -16,7 +16,7 @@
             small(slot="footer" class="text-muted")
               i.fa.fa-info-circle
               | &nbsp; {{ quote }}
-      .row.top
+      .row.top.hidden-md-down
         .col
           b-card(header="Your Bonus")
             .row.no-gutters
@@ -59,6 +59,7 @@ export default {
       return '$ ' + value.toFixed(2)
     }
   },
+  props: ['country', 'tenure'],
   data () {
     return {
       salesList: [],
@@ -83,7 +84,7 @@ export default {
       return this.calls > 0 ? this.sales / this.calls : 1
     },
     bonus () {
-      return bonus.calc('hon', 'below60', this.conversion)
+      return bonus.calc(this.country, this.tenure, this.conversion)
     }
   },
   watch: {

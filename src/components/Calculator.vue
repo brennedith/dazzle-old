@@ -124,6 +124,7 @@ export default {
       this.calls = 0
     }
     localStorage.setItem('lastUse', this.today)
+    this.$emit('sendConversion', this.conversion)
   }
 }
 </script>

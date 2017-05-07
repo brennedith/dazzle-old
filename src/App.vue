@@ -5,15 +5,13 @@
       a(@click="info")
         i.fa.fa-question-circle
     b-modal(id="info" title="Dazzle")
-      h5 &copy Brennedith Garcia, 2017
+      h5 Brennedith Garcia, &copy 2017
       p Made with
         ul
           li Vue.js
-          li Bootstrap
-          li Bootstrap-Vue
+          li Bootstrap, Bootswatch & Bootstrap-Vue
           li Pug & Stylus
-          li VS Code
-          li Linux &hearts;
+          li VS Code & Ubuntu Linux &hearts;
       p Hosted by Surge.sh
 </template>
 

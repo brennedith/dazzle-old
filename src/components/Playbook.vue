@@ -17,11 +17,16 @@ export default {
   components: { bButton, bCard, bCollapse },
   data () {
     return {
-      content: content
+      content: content,
+      current_step: undefined
     }
   },
   methods: {
     toggle (sel) {
+      if (this.current_step) {
+        this.$root.$emit('collapse::toggle', this.current_step)
+      }
+      this.current_step = sel
       this.$root.$emit('collapse::toggle', sel)
     }
   }

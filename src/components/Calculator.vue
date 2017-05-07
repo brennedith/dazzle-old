@@ -62,10 +62,11 @@ export default {
   props: ['country', 'tenure'],
   data () {
     return {
-      salesList: [],
+      today: Math.floor((new Date()).getTime() / 1000 / 60 / 60 / 24),
+      salesList: localStorage.getItem('salesList') ? JSON.parse(localStorage.getItem('salesList')) : [],
       saleNo: 1,
       saleRe: '',
-      calls: 0,
+      calls: localStorage.getItem('calls') ? parseInt(localStorage.getItem('calls')) : 0,
       quote: quote.random()
     }
   },
@@ -90,6 +91,12 @@ export default {
   watch: {
     conversion () {
       this.$emit('sendConversion', this.conversion)
+    },
+    salesList () {
+      localStorage.setItem('salesList', JSON.stringify(this.salesList))
+    },
+    calls () {
+      localStorage.setItem('calls', this.calls)
     }
   },
   methods: {
@@ -110,6 +117,13 @@ export default {
       this.salesList.splice(index, 1)
       this.saleNo = this.sales + 1
     }
+  },
+  created () {
+    if (localStorage.getItem('lastUse') && parseInt(localStorage.getItem('lastUse')) !== this.today) {
+      this.salesList = []
+      this.calls = 0
+    }
+    localStorage.setItem('lastUse', this.today)
   }
 }
 </script>

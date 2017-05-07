@@ -10,9 +10,11 @@
         ul
           li Vue.js
           li Bootstrap
+          li Bootstrap-Vue
           li Pug & Stylus
           li VS Code
-          li Linux
+          li Linux &hearts;
+      p Hosted by Surge.sh
 </template>
 
 <script>

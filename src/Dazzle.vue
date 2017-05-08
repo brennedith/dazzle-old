@@ -23,6 +23,7 @@
 import { bTooltip, bProgress, bBadge, bTabs, bTab } from 'bootstrap-vue/lib/components'
 import Calculator from '@/components/Calculator'
 import Playbook from '@/components/Playbook'
+import config from '../config/country'
 
 export default {
   name: 'dazzle',
@@ -35,7 +36,7 @@ export default {
   },
   data () {
     return {
-      country: 'hon', // Change to the proper country code. eg. 'hon': Honduras, 'gua': Guatemala
+      country: config.code,
       conversion_goal: 0.45,
       conversion: 1
     }

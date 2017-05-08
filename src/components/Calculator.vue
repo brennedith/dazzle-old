@@ -8,7 +8,7 @@
               b-input-group.col(left="Sales")
                 b-form-input(:value="sales" disabled)
               b-input-group.col(left="Calls")
-                b-form-input(type="number" v-model.number="calls")
+                b-form-input(type="number" min="0" v-model.number="calls")
                 b-button(slot="right" variant="info" @click="addCall")
                   i.fa.fa-plus
               b-input-group.col(left="Revenue")
@@ -33,7 +33,7 @@
           b-input-group.col(left="Number")
             b-form-input(type="number" v-model.number="saleNo")
           b-input-group.col-7(left="Revenue")
-            b-form-input(type="number" v-model.number="saleRe" @keyup.enter="addSale")
+            b-form-input(type="number" min="0" v-model.number="saleRe" @keyup.enter="addSale")
             b-button(slot="right" @click="exchange=!exchange")
               strong {{ currency }}
           b-button(variant="success" @click="addSale")

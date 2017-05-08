@@ -32,8 +32,10 @@
         .row.no-gutters
           b-input-group.col(left="Number")
             b-form-input(type="number" v-model.number="saleNo")
-          b-input-group.col(left="Revenue")
+          b-input-group.col-7(left="Revenue")
             b-form-input(type="number" v-model.number="saleRe" @keyup.enter="addSale")
+            b-button(slot="right" @click="exchange=!exchange")
+              strong {{ currency }}
           b-button(variant="success" @click="addSale")
             i.fa.fa-plus
         .row
@@ -64,6 +66,8 @@ export default {
     return {
       today: Math.floor((new Date()).getTime() / 1000 / 60 / 60 / 24),
       salesList: localStorage.getItem('salesList') ? JSON.parse(localStorage.getItem('salesList')) : [],
+      exchange: false,
+      exchangeRate: 1.37, // May 7th, 2017
       saleNo: 1,
       saleRe: '',
       calls: localStorage.getItem('calls') ? parseInt(localStorage.getItem('calls')) : 0,
@@ -71,6 +75,9 @@ export default {
     }
   },
   computed: {
+    currency () {
+      return this.exchange === false ? 'USD' : 'CAD'
+    },
     revenue () {
       return this.salesList.reduce((total, current) => {
         return total + current.revenue
@@ -104,8 +111,9 @@ export default {
       if (this.saleNo > 0 && this.saleRe > 0) {
         this.salesList.push({
           number: this.saleNo,
-          revenue: this.saleRe
+          revenue: this.exchange === false ? this.saleRe : this.saleRe / this.exchangeRate
         })
+        this.exchange = false
         this.saleNo = this.sales + 1
         this.saleRe = ''
       }
@@ -132,4 +140,6 @@ export default {
 <style lang="stylus" scoped>
   .form-control:disabled
     background-color #dce1e6
+  .btn-secondary
+    border 1px solid rgba(0,0,0,0.15)
 </style>

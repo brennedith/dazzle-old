@@ -56,3 +56,5 @@ else
 fi
 
 echo "Done!"
+
+sed -i "2s/.*/  code: 'hn'/" ./config/country.js

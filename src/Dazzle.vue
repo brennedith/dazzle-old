@@ -17,17 +17,20 @@
           calculator(@sendConversion="getConversion" :country="country" :tenure="tenure")
         b-tab(title="Playbook")
           playbook
+        b-tab(title="Hotels")
+          hotels
 </template>
 
 <script>
 import { bTooltip, bProgress, bBadge, bTabs, bTab } from 'bootstrap-vue/lib/components'
 import Calculator from '@/components/Calculator'
 import Playbook from '@/components/Playbook'
+import Hotels from '@/components/Hotels'
 import config from '../config/country'
 
 export default {
   name: 'dazzle',
-  components: { bTooltip, bProgress, bBadge, bTabs, bTab, Calculator, Playbook },
+  components: { bTooltip, bProgress, bBadge, bTabs, bTab, Calculator, Playbook, Hotels },
   props: ['tenure'],
   filters: {
     percentage (value) {

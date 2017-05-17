@@ -50,7 +50,7 @@
 <script>
 import { bCard, bButton, bInputGroup, bFormInput, bTable } from 'bootstrap-vue/lib/components'
 import Stopwatch from '@/components/Stopwatch'
-import quote from '@/components/content/quotes'
+import quotes from '@/components/content/quotes'
 import bonus from '@/components/content/bonuses'
 
 export default {
@@ -71,7 +71,7 @@ export default {
       saleNo: 1,
       saleRe: '',
       calls: localStorage.getItem('calls') ? parseInt(localStorage.getItem('calls')) : 0,
-      quote: quote.random()
+      quote: quotes.random()
     }
   },
   computed: {

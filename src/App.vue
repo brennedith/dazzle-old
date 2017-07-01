@@ -11,7 +11,7 @@
           li Vue.js
           li Bootstrap, Bootswatch & Bootstrap-Vue
           li Pug & Stylus
-          li VS Code & Ubuntu Linux &hearts;
+          li VS Code & Ubuntu Linux
       p Hosted by Surge.sh
 </template>
 

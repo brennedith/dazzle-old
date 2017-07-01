@@ -7,16 +7,18 @@
       i.fa.fa-pause(v-if="running")
     b-button(variant="warning" @click="stop" size="sm")
       i.fa.fa-stop
+    span &nbsp;&nbsp;
+    b-form-checkbox(v-model='type' value='hold' unchecked-value='break') Hold?
     b-modal(id="alert" hide-header)
       h2 Hey! Please go back to your customer
 </template>
 
 <script>
-import { bButton, bModal } from 'bootstrap-vue/lib/components'
+import { bButton, bFormCheckbox, bModal } from 'bootstrap-vue/lib/components'
 
 export default {
   name: 'stopwatch',
-  components: { bButton, bModal },
+  components: { bButton, bFormCheckbox, bModal },
   filters: {
     doubledigits (value) {
       let prefix = '0'
@@ -27,6 +29,8 @@ export default {
     return {
       count: 0,
       running: false,
+      type: 'hold',
+      notification: document.createElement('audio'),
       timer: undefined
     }
   },
@@ -40,7 +44,10 @@ export default {
   },
   methods: {
     alert () {
-      this.$root.$emit('show::modal', 'alert')
+      if (this.type === 'hold') {
+        this.$root.$emit('show::modal', 'alert')
+        this.notification.play()
+      }
     },
     run () {
       if (!this.running) {
@@ -61,6 +68,9 @@ export default {
       this.count = 0
       this.running = false
     }
+  },
+  created () {
+    this.notification.setAttribute('src', 'static/demonstrative.mp3')
   }
 }
 </script>

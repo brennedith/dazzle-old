@@ -1,61 +1,67 @@
 <template lang="pug">
-  .row.top
-    .col-md-7
-      .row
-        .col
-          b-card(header="Today" show-footer)
-            .row.no-gutters
-              b-input-group.col(left="Sales")
-                b-form-input(:value="sales" disabled)
-              b-input-group.col(left="Calls")
-                b-form-input(type="number" min="0" v-model.number="calls")
-                b-button(slot="right" variant="info" @click="addCall")
-                  i.fa.fa-plus
-              b-input-group.col(left="Revenue")
-                b-form-input(:value="revenue | currency" disabled)
-            small(slot="footer" class="text-muted")
-              i.fa.fa-info-circle
-              | &nbsp; {{ quote }}
-      .row.top.hidden-md-down
-        .col
-          b-card(header="Your Bonus")
-            .row.no-gutters
-              b-input-group.col(left="Current")
-                b-form-input(:value="bonus.current * revenue | currency" disabled)
-              b-input-group.col(left="Next")
-                b-form-input(:value="bonus.next * revenue | currency" disabled)
-        .col
-          b-card(header="Stopwatch")
-            stopwatch
-    .col-md-5
-      b-card(header="Sales")
-        .row.no-gutters
-          b-input-group.col(left="Number")
-            b-form-input(type="number" v-model.number="saleNo")
-          b-input-group.col-7(left="Revenue")
-            b-form-input(type="number" min="0" v-model.number="saleRe" @keyup.enter="addSale")
-            b-button(slot="right" @click="exchange=!exchange")
-              strong {{ currency }}
-          b-button(variant="success" @click="addSale")
-            i.fa.fa-plus
+  div
+    .row.top
+      .col
+        b-alert(show :variant="alert.variant")
+          strong {{ alert.message }}
+    .row
+      .col-md-7
         .row
-            b-table(:items="salesList" :fields="{number: {label: 'Sale Number'}, revenue: {label: 'Sale Revenue'}, actions: {label: 'Actions'}}" striped hover)
-              template(slot="number" scope="sale") {{ sale.item.number }}
-              template(slot="revenue" scope="sale") {{ sale.item.revenue | currency }}
-              template(slot="actions" scope="sale")
-                b-button(variant="danger" size="sm" @click="removeSale(sale.index)")
-                  i.fa.fa-trash-o
+          .col
+            b-card(header="Today" show-footer)
+              .row.no-gutters
+                b-input-group.col(left="Sales")
+                  b-form-input(:value="sales" disabled)
+                b-input-group.col(left="Calls")
+                  b-form-input(type="number" min="0" v-model.number="calls")
+                  b-button(slot="right" variant="info" @click="addCall")
+                    i.fa.fa-plus
+                b-input-group.col(left="Revenue")
+                  b-form-input(:value="revenue | currency" disabled)
+              small.text-muted.pointer(slot="footer" title="Random quote" @click="randomQuote")
+                i.fa.fa-info-circle
+                | &nbsp; {{ quote }}
+        .row.top.hidden-md-down
+          .col
+            b-card(header="Your Bonus")
+              .row.no-gutters
+                b-input-group.col(left="Current")
+                  b-form-input(:value="bonus.current * revenue | currency" disabled)
+                b-input-group.col(left="Next")
+                  b-form-input(:value="bonus.next * revenue | currency" disabled)
+          .col
+            b-card(header="Stopwatch")
+              stopwatch
+      .col-md-5
+        b-card(header="Sales")
+          .row.no-gutters
+            b-input-group.col(left="Number")
+              b-form-input(type="number" v-model.number="saleNo")
+            b-input-group.col-7(left="Revenue")
+              b-form-input(type="number" min="0" v-model.number="saleRe" @keyup.enter="addSale")
+              b-button(slot="right" @click="exchange=!exchange")
+                strong {{ currency }}
+            b-button(variant="success" @click="addSale")
+              i.fa.fa-plus
+          .row
+              b-table(:items="salesList" :fields="{number: {label: 'Sale Number'}, revenue: {label: 'Sale Revenue'}, actions: {label: 'Actions'}}" striped hover)
+                template(slot="number" scope="sale") {{ sale.item.number }}
+                template(slot="revenue" scope="sale") {{ sale.item.revenue | currency }}
+                template(slot="actions" scope="sale")
+                  b-button(variant="danger" size="sm" @click="removeSale(sale.index)")
+                    i.fa.fa-trash-o
 </template>
 
 <script>
-import { bCard, bButton, bInputGroup, bFormInput, bTable } from 'bootstrap-vue/lib/components'
+import { bAlert, bCard, bButton, bInputGroup, bFormInput, bTable } from 'bootstrap-vue/lib/components'
 import Stopwatch from '@/components/Stopwatch'
+import alerts from '@/components/content/alerts'
 import quotes from '@/components/content/quotes'
 import bonus from '@/components/content/bonuses'
 
 export default {
   name: 'calculator',
-  components: { bCard, bButton, bInputGroup, bFormInput, bTable, Stopwatch },
+  components: { bAlert, bCard, bButton, bInputGroup, bFormInput, bTable, Stopwatch },
   filters: {
     currency (value) {
       return '$ ' + value.toFixed(2)
@@ -64,10 +70,11 @@ export default {
   props: ['country', 'tenure'],
   data () {
     return {
+      alert: alerts.random(),
       today: Math.floor((new Date()).getTime() / 1000 / 60 / 60 / 24),
       salesList: localStorage.getItem('salesList') ? JSON.parse(localStorage.getItem('salesList')) : [],
       exchange: false,
-      exchangeRate: 1.37, // May 7th, 2017
+      exchangeRate: 1.2956, // July 1st, 2017
       saleNo: 1,
       saleRe: '',
       calls: localStorage.getItem('calls') ? parseInt(localStorage.getItem('calls')) : 0,
@@ -124,6 +131,9 @@ export default {
     removeSale (index) {
       this.salesList.splice(index, 1)
       this.saleNo = this.sales + 1
+    },
+    randomQuote () {
+      this.quote = quotes.random()
     }
   },
   created () {
@@ -142,4 +152,8 @@ export default {
     background-color #dce1e6
   .btn-secondary
     border 1px solid rgba(0,0,0,0.15)
+  .alert
+    margin-bottom 0
+  .pointer
+    cursor pointer
 </style>

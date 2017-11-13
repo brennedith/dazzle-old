@@ -2,7 +2,7 @@
   div
     .row.top
       .col
-        b-alert(show :variant="alert.variant")
+        b-alert(show :variant="alert.variant").hidden-md-down
           strong {{ alert.message }}
     .row
       .col-md-7
@@ -74,7 +74,7 @@ export default {
       today: Math.floor((new Date()).getTime() / 1000 / 60 / 60 / 24),
       salesList: localStorage.getItem('salesList') ? JSON.parse(localStorage.getItem('salesList')) : [],
       exchange: false,
-      exchangeRate: 1.2956, // July 1st, 2017
+      exchangeRate: 1.26821956, // November 11th, 2017
       saleNo: 1,
       saleRe: '',
       calls: localStorage.getItem('calls') ? parseInt(localStorage.getItem('calls')) : 0,

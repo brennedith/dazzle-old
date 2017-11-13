@@ -15,22 +15,22 @@
       b-tabs
         b-tab(title="Calculator" active)
           calculator(@sendConversion="getConversion" :country="country" :tenure="tenure")
-        b-tab(title="Playbook")
-          playbook
         b-tab(title="Hotels")
           hotels
+        b-tab(title="Cities")
+          cities
 </template>
 
 <script>
 import { bTooltip, bProgress, bBadge, bTabs, bTab } from 'bootstrap-vue/lib/components'
 import Calculator from '@/components/Calculator'
-import Playbook from '@/components/Playbook'
 import Hotels from '@/components/Hotels'
+import Cities from '@/components/Cities'
 import config from '../config/country'
 
 export default {
   name: 'dazzle',
-  components: { bTooltip, bProgress, bBadge, bTabs, bTab, Calculator, Playbook, Hotels },
+  components: { bTooltip, bProgress, bBadge, bTabs, bTab, Calculator, Hotels, Cities },
   props: ['tenure'],
   filters: {
     percentage (value) {

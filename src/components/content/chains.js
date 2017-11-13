@@ -15,6 +15,6 @@ export default [
   {name: 'Motel 6', hotels: ['Motel 6', 'Studio 6']},
   {name: 'Omni Hotels & Resorts', hotels: ['Omni Hotels & Resorts']},
   {name: 'Shilo Inns', hotels: ['Shilo Inns']},
-  {name: 'Vantage Hospitality', hotels: ['Americas Best Value Inn', 'Canadas Best Value Inn']},
+  {name: 'Red Lion', hotels: ['Americas Best Value Inn', 'Canadas Best Value Inn', 'Country Hearth Inn & Suites', 'Signature Inn', 'Settle Inn', 'Guest House', 'Lexington', 'Jameson Inn', 'Red Lion Inn & Suites']},
   {name: 'Wyndham Worldwide', hotels: ['Days Inn', 'Super 8', 'Travelodge', 'Knights Inn', 'Microtel Inn & Suites by Wyndham', 'Howard Johnson\'s', 'Baymont Inn & Suites', 'Ramada Plaza', 'Wyndham Garden', 'Hawthorn Suites', 'Wingate By Wyndham', 'Ramada', 'Wyndham', 'Wyndham Grand']}
 ]
